@@ -19,6 +19,7 @@ textarea {
 @media screen and (max-width: 480px) {
   .wrap {
     margin-top: 5rem;
+    height: calc(100vh - 5rem);
   }
   .content-outer {
     width: 100%;
@@ -31,6 +32,9 @@ textarea {
   }
 }
 @media screen and (min-width: 480px) {
+  .wrap {
+    height: 100vh;
+  }
   .content-outer {
     flex: 2;
   }
@@ -43,7 +47,6 @@ textarea {
 }
 .wrap {
   display: flex;
-  height: 100vh;
 }
 .content-outer {
   padding: 2em;
