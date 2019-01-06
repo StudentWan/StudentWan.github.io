@@ -1,0 +1,93 @@
+html {
+  font-size: 62.5%;
+}
+body {
+  margin: 0;
+  box-sizing: border-box;
+  font-size: 1.6rem;
+}
+@font-face {
+  font-family: "Unica One";
+  src: url("/UnicaOne-Regular.ttf");
+}
+@media screen and (max-width: 480px) {
+  .wrap {
+    margin-top: 5rem;
+  }
+  .content-outer {
+    width: 100%;
+  }
+  .menu-outer {
+    display: none;
+  }
+  .header-pc {
+    display: none !important;
+  }
+}
+@media screen and (min-width: 480px) {
+  .content-outer {
+    flex: 2;
+  }
+  .menu-outer {
+    flex: 1;
+  }
+  .header-mobile {
+    display: none !important;
+  }
+}
+.wrap {
+  display: flex;
+  height: 100vh;
+}
+.content-outer {
+  padding: 2em;
+  overflow: auto;
+}
+.menu-outer {
+  background: #ff6347;
+  overflow: auto;
+}
+.header {
+  font-family: 'Unica One', sans-serif;
+}
+.header-pc {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.header-pc .logo {
+  height: 10rem;
+}
+.header-pc .github {
+  width: 32px;
+  height: 32px;
+  background: url("/github-light.png") no-repeat;
+  background-size: cover;
+}
+.header-pc .github:hover {
+  background: url("/github-dark.png") no-repeat;
+  background-size: cover;
+}
+.header-mobile {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 4.8rem;
+  background: #ff6347;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.25);
+  display: flex;
+  align-items: center;
+}
+.header-mobile .item {
+  padding: 0 1em;
+  line-height: 4.8rem;
+  height: 4.8rem;
+  white-space: nowrap;
+  vertical-align: middle;
+  text-decoration: none;
+  color: #fff;
+}
+.header-mobile .item:focus {
+  background: #ff5537;
+}

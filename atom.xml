@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>Ashen One</title>
+  <title>Ashen</title>
   
   
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-12-28T02:45:07.352Z</updated>
+  <updated>2018-12-30T08:17:00.062Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -21,12 +21,14 @@
     <link href="http://yoursite.com/2018/12/28/test/"/>
     <id>http://yoursite.com/2018/12/28/test/</id>
     <published>2018-12-28T02:45:07.000Z</published>
-    <updated>2018-12-28T02:45:07.352Z</updated>
+    <updated>2018-12-30T08:17:00.062Z</updated>
     
     <summary type="html">
     
     </summary>
     
+    
+      <category term="foo" scheme="http://yoursite.com/tags/foo/"/>
     
   </entry>
   
