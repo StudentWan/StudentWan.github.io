@@ -59,7 +59,6 @@ textarea {
 .header-pc {
   display: flex;
   justify-content: space-between;
-  align-items: center;
 }
 .header-pc .logo {
   height: 10rem;
@@ -94,6 +93,9 @@ textarea {
   text-decoration: none;
   color: #fff;
 }
-.header-mobile .item:focus {
+.header-mobile .item:active {
+  background: #ff5537;
+}
+.header-mobile .cur {
   background: #ff5537;
 }
