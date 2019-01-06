@@ -19,9 +19,6 @@ textarea {
 @media screen and (max-width: 480px) {
   .wrap {
     margin-top: 5rem;
-    height: -webkit-calc(100vh - 5rem);
-    height: -moz-calc(100vh - 5rem);
-    height: calc(100vh - 5rem);
   }
   .content-outer {
     width: 100%;
