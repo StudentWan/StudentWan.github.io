@@ -7,6 +7,7 @@ body {
   margin: 0;
   box-sizing: border-box;
   font-size: 1.6rem;
+  color: #404040;
 }
 a,
 button,
@@ -58,8 +59,21 @@ a {
 .recent-post-item .post-info .tag {
   color: #aaa;
   margin-right: 0.5em;
+  transition: all 0.2s ease-in-out;
 }
 .recent-post-item .post-info .tag:hover {
   color: #ff6347;
   border-bottom: 1px solid #ff6347;
+}
+.recent-post-item .read-more {
+  display: inline-block;
+  font-size: 1.4rem;
+  padding: 0.5em;
+  color: #fff;
+  background: #ff6347;
+  transition: all 0.2s ease-in-out;
+}
+.recent-post-item .read-more:hover {
+  color: #aaa;
+  background: #fff;
 }

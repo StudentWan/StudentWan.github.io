@@ -7,6 +7,7 @@ body {
   margin: 0;
   box-sizing: border-box;
   font-size: 1.6rem;
+  color: #404040;
 }
 a,
 button,
@@ -49,7 +50,7 @@ a {
   display: flex;
 }
 .content-outer {
-  padding: 2em;
+  padding: 1em 2em 0 2em;
   overflow: auto;
 }
 .menu-outer {
