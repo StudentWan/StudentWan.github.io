@@ -1,0 +1,25 @@
+@import url("https://fonts.googleapis.com/css?family=Vollkorn");
+@import url("https://fonts.googleapis.com/css?family=Unica+One");
+html {
+  font-size: 62.5%;
+}
+body {
+  margin: 0;
+  box-sizing: border-box;
+  font-size: 1.6rem;
+}
+a,
+button,
+input,
+textarea {
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+a {
+  text-decoration: none;
+}
+.article-content {
+  font-size: 1.4rem;
+}
+.article-content a {
+  color: #ff6347;
+}

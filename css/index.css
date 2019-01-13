@@ -1,0 +1,65 @@
+@import url("https://fonts.googleapis.com/css?family=Vollkorn");
+@import url("https://fonts.googleapis.com/css?family=Unica+One");
+html {
+  font-size: 62.5%;
+}
+body {
+  margin: 0;
+  box-sizing: border-box;
+  font-size: 1.6rem;
+}
+a,
+button,
+input,
+textarea {
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+a {
+  text-decoration: none;
+}
+.recent-posts {
+  font-family: 'Vollkorn', sans-serif;
+}
+.recent-post-item {
+  padding-bottom: 1em;
+  border-bottom: 3px dashed #ff6347;
+}
+.recent-post-item .post-title {
+  display: block;
+  margin-top: 3rem;
+  margin-bottom: 0.5rem;
+  line-height: 1.5em;
+  color: #ff6347;
+  font-weight: normal;
+  font-size: 2rem;
+  margin-block-start: 0.83em;
+  margin-block-end: 0.83em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  transition: all 0.2s ease-in-out;
+}
+.recent-post-item .post-title:hover {
+  color: #aaa;
+}
+.recent-post-item .post-info {
+  color: #aaa;
+}
+.recent-post-item .post-info time {
+  background: url("/time.png") 1.5rem/1.5rem no-repeat;
+  background-position: 0 0;
+  padding-left: 1.6em;
+  padding-right: 1em;
+}
+.recent-post-item .post-info .tag-icon {
+  background: url("/tag.png") 1.5rem/1.5rem no-repeat;
+  background-position: 0 0;
+  padding-left: 1.6em;
+}
+.recent-post-item .post-info .tag {
+  color: #aaa;
+  margin-right: 0.5em;
+}
+.recent-post-item .post-info .tag:hover {
+  color: #ff6347;
+  border-bottom: 1px solid #ff6347;
+}

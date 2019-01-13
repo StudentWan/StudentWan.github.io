@@ -1,0 +1,42 @@
+<!DOCTYPE html><html lang="en"><head><meta name="generator" content="Hexo 3.8.0"><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="X-UA-Compatible" content="ie=edge"><title>Ashen</title><link rel="stylesheet" href="/css/ashen.css"><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="/css/article.css"></head><body><div class="wrap"><div class="content-outer" id="content-outer"><div id="content-inner"><header class="header"><header class="header-pc"><a class="index" href="/"><img class="logo" src="/images/logo.png"></a><a class="github" href="https://github.com/StudentWan/hexo-ashen-theme" target="_blank"></a></header><header class="header-mobile" id="header-mobile"><a class="item" href="/"><strong>Home</strong></a><a class="item" href="/archives"><strong>Archives</strong></a><a class="item" href="/tags"><strong>Tags</strong></a><a class="item" href="/about"><strong>About</strong></a></header></header><article id="post"><h1>断点调试的学习与思考-以一个NodeJS程序调试为例</h1><p>之前在调试JS代码的时候，经常使用的调试方式就是用<code>console.log</code>跟踪代码执行来确定问题点，但是使用<code>console.log</code>进行调试存在一些问题：</p>
+<pre><code>1. 污染代码结构
+2. 调试第三方库的时候无能为力
+</code></pre><p>而使用断点调试的原理是根据函数的调用栈信息来确定问题的所在，相比于<code>console.log</code>调试，断点调试针对上述两种情况拥有更好的表现。</p>
+<p>由于在周五的工作中遇到了需要针对NodeJS程序进行断点调试的实例，因此我将结合当时使用情况来讲解一下我对断点调试的学习、理解和一些思考。</p>
+<p>我使用的编辑器是Visual Studio Code，在讲述相关知识的时候会以VS Code为基础，但在其他的编辑器中情况应该是大同小异的。</p>
+<a id="more"></a>
+<h3 id="断点调试基本知识"><a href="#断点调试基本知识" class="headerlink" title="断点调试基本知识"></a>断点调试基本知识</h3><p>首先是基本界面：</p>
+<p><img src="http://p20zi8dae.bkt.clouddn.com/ui20180610.png" alt="UI界面"></p>
+<p>下面逐一讲解：</p>
+<pre><code>1. 变量信息：表示在当前的调用栈下的局部变量、闭包和全局变量，我们在调试的过程中可以通过观察变量的变化来追踪程序的问题
+2. 调用堆栈信息：这个比较好理解，表示当前所处的调用栈
+3. 已打的断点：表示在调试过程中你已经打过的断点
+4. 调试选项配置：可以在这里设置调试程序时的命令和参数
+5. 断点：你当前看到的断点
+6. log和异常信息：log和异常信息会显示在调试控制台
+7. 调试操作栏：调试过程中需要使用到的一些操作的集合，下文将逐一讲解
+</code></pre><p>然后讲解一下调试操作栏中最重要的三个选项：</p>
+<pre><code>1. 单步跳过：指直接跳过当前语句的执行流程，叫程序的运行阶段推动到下一条应该执行语句，可以被断点打断。我们可以使用单步跳过来跳过一些对于定位问题没有帮助的函数执行
+2. 单步调试：指进入当前函数的调用中，观察函数的执行细节。通过单步调试，我们可以观察到函数的执行细节并追踪到函数执行到某一步时的变量信息等重要信息
+3. 单步跳出：指跳出当前函数的执行，叫程序的运行阶段推动到下一跳应该执行语句，可以被断点打断。我们可以用单步跳出配合单步调试来更加细粒度的控制程序的执行
+</code></pre><p>掌握了基本知识基本就可以进行断点调试了，但是在调试NodeJS程序时<strong><em>有一点需要注意：</em></strong>针对<code>.js</code>后缀的文件，NodeJS是不原生支持ES Modules的，需要使用babel进行转译，这会造成我们实际调试的代码并不是我们书写的源代码，从而导致得不到相关信息。</p>
+<p><strong><em>解决办法：</em></strong>如果在代码中使用了ES Modules的语法，将它改成CommonJS Modules，并去掉相关的转译babel。2018/08/19补充:或使用sourcemap。</p>
+<h3 id="实例，一个NodeJS程序的断点调试"><a href="#实例，一个NodeJS程序的断点调试" class="headerlink" title="实例，一个NodeJS程序的断点调试"></a>实例，一个NodeJS程序的断点调试</h3><p>在周五我遇到的问题是这样的：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> actual = transformFileSync(actualPath, &#123;</span><br><span class="line">  babelrc: <span class="literal">false</span>,</span><br><span class="line">  plugins: [<span class="string">'../../../src/index.js'</span>]</span><br><span class="line">&#125;).code;</span><br></pre></td></tr></table></figure>
+<p>在看到这段代码的时候师兄问了我一个问题：这个程序是怎么通过你<code>plugins</code>属性提供的字符串来把你需要的index.js文件加载进来的？</p>
+<p>追踪到<code>transformFileSync</code>函数的定义，发现它是在第三方模块babel-core中引入的，显然，这个问题我们是无法用<code>console.log</code>来回答的。</p>
+<p>于是就开始了断点调试的过程，首先在这一行打上断点，然后开始单步调试：</p>
+<p><img src="http://p20zi8dae.bkt.clouddn.com/break_first20180610.png" alt="第一个断点"></p>
+<p>首先我选择通过结合上文提到的三种操作方式跑通一次程序，借此发现加载index.js文件的时候有哪些变量发生了怎样的变化。我发现，在变量信息中，一个<code>plugins</code>属性发生了变化：</p>
+<p><img src="http://p20zi8dae.bkt.clouddn.com/plugin_120180610.png" alt="plugins状态1"></p>
+<p><img src="http://p20zi8dae.bkt.clouddn.com/plugin-220180610.png" alt="plugins状态2"></p>
+<p>在仔细分析了这个属性和以及它和正在调试的程序的关联后，我确定就是在这个属性变化的时候真正引入了index.js。</p>
+<p>接下来要做的事就是通过单步调试，逐步缩窄范围，最后确定引入index.js文件的具体位置。</p>
+<p>下面以缩窄范围的第一步举例：</p>
+<p>首先通过单步调试，我发现程序运行到以下代码的第一行：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> file = <span class="keyword">new</span> _file2.default(opts, <span class="keyword">this</span>);</span><br><span class="line"><span class="keyword">return</span> file.wrap(code, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  file.addCode(code);</span><br><span class="line">  file.parseCode(code);</span><br><span class="line">  <span class="keyword">return</span> file.transform();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>而在单步调试和单步跳出<figure class="highlight plain"><figcaption><span>file </span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">```这行代码以后，我发现`plugins`属性发生了上文提到的变化，这说明，这次index.js文件的加载一定是发生在```new _file2.default(..., ...)```这个函数的执行过程中，于是我就可以把断点定在这个函数的第一行，然后单步往后调试：</span><br><span class="line"></span><br><span class="line">![第一次缩窄范围](http://p20zi8dae.bkt.clouddn.com/narrow_first20180610.png)</span><br><span class="line"></span><br><span class="line">经过几次重复上述的过程，最终定位到了加载index.js文件的代码：</span><br><span class="line"></span><br><span class="line">```js</span><br><span class="line">if (pluginLoc) &#123;</span><br><span class="line">  plugin = require(pluginLoc);</span><br><span class="line">&#125; else &#123;</span><br><span class="line">  throw new ReferenceError(messages.get(&quot;pluginUnknown&quot;, plugin, loc, i, dirname));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="总结和思考"><a href="#总结和思考" class="headerlink" title="总结和思考"></a>总结和思考</h3><p>我在缩窄范围以定位问题的过程中一共打了6个断点，但是师兄给我演示时候只打了3个，这还是由于我对NodeJS和断点调试的熟练程度不够，以后多学习、运用，应该可以不断提升。</p>
+<p>下面谈一点思考：</p>
+<p>在这次学习断点调试的过程中，学到了不同的技术有不同适合的场景，比如有些问题可能通过log更好定位，另一些则用断点调试可能会更好。</p>
+<h4 id="2018-08-19补充：绝大部分问题用debugger都能更好的解决"><a href="#2018-08-19补充：绝大部分问题用debugger都能更好的解决" class="headerlink" title="2018/08/19补充：绝大部分问题用debugger都能更好的解决"></a>2018/08/19补充：绝大部分问题用debugger都能更好的解决</h4></article><div id="paginator"></div></div></div><aside class="menu-outer" id="menu-outer"><div class="menu-inner"><div class="brief"><img class="avatar" src="/images/avatar.jpg"><p class="quote"><strong>May the flame guide thy way.</strong></p><div class="link"><a class="twitter" href="https://twitter.com/EngineerWan" target="_blank"></a><a class="weibo" href="https://weibo.com/5210338619/profile?rightmod=1&amp;wvr=6&amp;mod=personinfo" target="_blank"></a><a class="zhihu" href="https://www.zhihu.com/people/inhumane/activities" target="_blank"></a><a class="github" href="https://github.com/StudentWan" target="_blank"></a></div></div><nav><a class="item" href="/"><strong>Home</strong></a><a class="item" href="/archives"><strong>Archives</strong></a><a class="item" href="/tags"><strong>Tags</strong></a><a class="item" href="/about"><strong>About</strong></a></nav></div><footer><p> <span>This Blog is driven by - </span><a href="https://hexo.io/zh-cn/">Hexo</a><span> , using theme - </span><a href="https://github.com/StudentWan/hexo-ashen-theme">Ashen</a></p><p>Inspired by - <a href="http://stylus-lang.com/">Stylus</a></p></footer></aside></div><script src="/js/ashen.js"></script></body></html>

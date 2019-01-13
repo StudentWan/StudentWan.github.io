@@ -16,7 +16,6 @@ textarea {
 }
 a {
   text-decoration: none;
-  color: #fff;
 }
 @media screen and (max-width: 480px) {
   .wrap {
@@ -58,8 +57,14 @@ a {
   font-family: 'Unica One', cursive;
   overflow: auto;
 }
+.menu-outer a {
+  color: #fff;
+}
 .header {
   font-family: 'Unica One', cursive;
+}
+.header a {
+  color: #fff;
 }
 .header-pc {
   display: flex;
@@ -90,6 +95,8 @@ a {
   align-items: center;
 }
 .header-mobile .item {
+  text-transform: uppercase;
+  letter-spacing: 1px;
   padding: 0 1em;
   line-height: 4.8rem;
   height: 4.8rem;
@@ -147,6 +154,8 @@ nav {
   margin: 2em;
 }
 nav .item {
+  text-transform: uppercase;
+  letter-spacing: 1px;
   display: block;
   text-align: center;
   padding: 1em;
