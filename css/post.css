@@ -11,6 +11,7 @@ article h6 {
 }
 article pre,
 article blockquote {
+  font-size: 1.3rem;
   color: #90a4a1;
 }
 article pre {

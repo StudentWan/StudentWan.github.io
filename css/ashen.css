@@ -86,16 +86,11 @@ article .highlight {
   padding-top: 1.4rem;
   background: #263238;
   color: #eff;
+  font-size: 0.9rem;
   line-height: $line-height-code-block;
 }
 figure.highlight {
   position: relative;
-}
-blockquote {
-  margin: 0;
-  padding: 0 0.6rem;
-  border-left: 0.2rem solid $blockquote-padding-color;
-  color: $blockquote-color;
 }
 article figure pre,
 article figure code {
