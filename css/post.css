@@ -1,0 +1,38 @@
+article h1 {
+  letter-spacing: 2px;
+  color: #aaa;
+}
+article h2,
+article h3,
+article h4,
+article h5,
+article h6 {
+  color: #ff6347;
+}
+article pre,
+article blockquote {
+  font-size: 0.85em;
+  color: #90a4a1;
+}
+article pre {
+  background: #fafafa;
+  border: 1px solid #eee;
+  padding: 10px;
+  margin: 1rem 0;
+  overflow: auto;
+}
+article blockquote {
+  margin-left: 0;
+  margin-right: 0;
+  border-left: 5px solid #aaa;
+  padding-left: 2em;
+  font-weight: bold;
+}
+article figure {
+  margin-left: 0;
+  margin-right: 0;
+  overflow: auto;
+}
+article a {
+  color: #ff6347;
+}

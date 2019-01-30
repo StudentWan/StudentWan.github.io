@@ -1,6 +1,361 @@
 @import url("https://fonts.googleapis.com/css?family=Vollkorn");
 @import url("https://fonts.googleapis.com/css?family=Unica+One");
+figure.highlight.js table:before {
+  content: "js";
+}
+figure.highlight.javascript table:before {
+  content: "javascript";
+}
+figure.highlight.python table:before {
+  content: "python";
+}
+figure.highlight.ruby table:before {
+  content: "ruby";
+}
+figure.highlight.xml table:before {
+  content: "xml";
+}
+figure.highlight.html table:before {
+  content: "html";
+}
+figure.highlight.css table:before {
+  content: "css";
+}
+figure.highlight.perl table:before {
+  content: "perl";
+}
+figure.highlight.sql table:before {
+  content: "sql";
+}
+figure.highlight.coffeescript table:before {
+  content: "coffeescript";
+}
+figure.highlight.java table:before {
+  content: "java";
+}
+figure.highlight.scala table:before {
+  content: "scala";
+}
+figure.highlight.kotlin table:before {
+  content: "kotlin";
+}
+figure.highlight.c table:before {
+  content: "c";
+}
+figure.highlight.c\+\+ table:before {
+  content: "c\+\+";
+}
+figure.highlight.go table:before {
+  content: "go";
+}
+figure.highlight.less table:before {
+  content: "less";
+}
+figure.highlight.sass table:before {
+  content: "sass";
+}
+figure.highlight.scss table:before {
+  content: "scss";
+}
+figure.highlight.stylus table:before {
+  content: "stylus";
+}
+figure.highlight.styl table:before {
+  content: "styl";
+}
+figure.highlight.typescript table:before {
+  content: "typescript";
+}
+figure.highlight.ts table:before {
+  content: "ts";
+}
+figure.highlight.bash table:before {
+  content: "bash";
+}
+figure.highlight.yml table:before {
+  content: "yml";
+}
+figure.highlight.gradle table:before {
+  content: "gradle";
+}
+article figure pre,
+article .highlight {
+  overflow: auto;
+  margin: 1rem 0;
+  padding: 0;
+  padding-top: 1.4rem;
+  background: #263238;
+  color: #eff;
+  font-size: $code-font-size;
+  line-height: $line-height-code-block;
+}
+figure.highlight {
+  position: relative;
+}
+blockquote {
+  margin: 0;
+  padding: 0 0.6rem;
+  border-left: 0.2rem solid $blockquote-padding-color;
+  color: $blockquote-color;
+}
+article figure pre,
+article figure code {
+  font-family: $code-font !important;
+}
+article figure code {
+  padding: 0.1rem 0.2rem;
+  background: $code-background;
+  color: $code-foreground;
+  word-wrap: break-word;
+  font-size: $code-font-size;
+}
+article figure pre code {
+  padding: 0;
+  background: none;
+  color: #eff;
+  text-shadow: none;
+}
+article .highlight {
+  position: relative;
+  border-radius: 1px;
+}
+article .highlight:after {
+  position: absolute;
+  top: 0;
+  z-index: 0;
+  min-width: 100%;
+  height: 1.4rem;
+  background: #1c2429;
+  content: "";
+}
+article .highlight pre {
+  margin: 0;
+  padding: 8px 0;
+  border: none;
+}
+article .highlight .line::selection {
+  background: rgba(128,203,196,0.125);
+  color: #eff;
+}
+article .highlight table {
+  position: relative;
+  margin: 0;
+  width: auto;
+  border: none;
+}
+article .highlight table:before {
+  position: fixed;
+  z-index: 1;
+  display: inline-block;
+  margin-top: -1.4rem;
+  padding: 0 0.7rem;
+  width: 5rem;
+  color: #eff;
+  content: "Code";
+  font-weight: bold;
+  font-size: 0.8rem;
+  line-height: 1.4rem;
+}
+article .highlight table:after {
+  position: absolute;
+  top: -1.4rem;
+  z-index: 0;
+  width: 100%;
+  height: 1.4rem;
+  background: #1c2429;
+  content: "";
+}
+article .highlight td {
+  padding: 0;
+  border: none;
+}
+article .highlight figcaption {
+  margin-bottom: 1em;
+  color: #eff;
+  font-size: 1em;
+  line-height: 1em;
+}
+article .highlight figcaption a {
+  float: right;
+  color: #eff;
+}
+article .highlight figcaption a:hover {
+  border-bottom-color: #eff;
+}
+article .highlight .gutter pre {
+  padding-right: 0.5rem;
+  padding-left: 0.5rem;
+  background-color: #263238;
+  color: #37474f;
+  text-align: right;
+}
+article .highlight .code pre {
+  padding-right: 0.5rem;
+  padding-left: 0.5rem;
+  width: 100%;
+  background-color: #263238;
+}
+article .highlight .line {
+  height: 1rem;
+}
+article .gutter {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+article .gist table {
+  width: auto;
+}
+article .gist table td {
+  border: none;
+}
+article pre .deletion {
+  background: #008000;
+}
+article pre .addition {
+  background: #800000;
+}
+article pre .meta {
+  color: #c792ea;
+}
+article pre .comment {
+  color: #546e7a;
+}
+article pre .comment::selection {
+  background: rgba(128,203,196,0.125);
+  color: #eff;
+}
+article pre .variable,
+article pre .attribute,
+article pre .regexp,
+article pre .ruby .constant,
+article pre .xml .tag .title,
+article pre .xml .pi,
+article pre .xml .doctype,
+article pre .html .doctype,
+article pre .css .id,
+article pre .tag .name,
+article pre .css .class,
+article pre .css .pseudo {
+  color: #ff5370;
+}
+article pre .variable::selection,
+article pre .attribute::selection,
+article pre .regexp::selection,
+article pre .ruby .constant::selection,
+article pre .xml .tag .title::selection,
+article pre .xml .pi::selection,
+article pre .xml .doctype::selection,
+article pre .html .doctype::selection,
+article pre .css .id::selection,
+article pre .tag .name::selection,
+article pre .css .class::selection,
+article pre .css .pseudo::selection {
+  background: rgba(128,203,196,0.125);
+  color: #eff;
+}
+article pre .tag {
+  color: #89ddff;
+}
+article pre .tag::selection {
+  background: rgba(128,203,196,0.125);
+  color: #eff;
+}
+article pre .number,
+article pre .preprocessor,
+article pre .literal,
+article pre .params,
+article pre .constant,
+article pre .command {
+  color: #f78c6c;
+}
+article pre .number::selection,
+article pre .preprocessor::selection,
+article pre .literal::selection,
+article pre .params::selection,
+article pre .constant::selection,
+article pre .command::selection {
+  background: rgba(128,203,196,0.125);
+  color: #eff;
+}
+article pre .built_in {
+  color: #ffcb6b;
+}
+article pre .built_in::selection {
+  background: rgba(128,203,196,0.125);
+  color: #eff;
+}
+article pre .ruby .class .title,
+article pre .css .rules .attribute,
+article pre .string,
+article pre .value,
+article pre .inheritance,
+article pre .header,
+article pre .ruby .symbol,
+article pre .xml .cdata,
+article pre .special,
+article pre .number,
+article pre .formula {
+  color: #c3e88d;
+}
+article pre .ruby .class .title::selection,
+article pre .css .rules .attribute::selection,
+article pre .string::selection,
+article pre .value::selection,
+article pre .inheritance::selection,
+article pre .header::selection,
+article pre .ruby .symbol::selection,
+article pre .xml .cdata::selection,
+article pre .special::selection,
+article pre .number::selection,
+article pre .formula::selection {
+  background: rgba(128,203,196,0.125);
+  color: #eff;
+}
+article pre .keyword,
+article pre .title,
+article pre .css .hexcolor {
+  color: #89ddff;
+}
+article pre .keyword::selection,
+article pre .title::selection,
+article pre .css .hexcolor::selection {
+  background: rgba(128,203,196,0.125);
+  color: #eff;
+}
+article pre .function,
+article pre .python .decorator,
+article pre .python .title,
+article pre .ruby .function .title,
+article pre .ruby .title .keyword,
+article pre .perl .sub,
+article pre .javascript .title,
+article pre .coffeescript .title {
+  color: #82aaff;
+}
+article pre .function::selection,
+article pre .python .decorator::selection,
+article pre .python .title::selection,
+article pre .ruby .function .title::selection,
+article pre .ruby .title .keyword::selection,
+article pre .perl .sub::selection,
+article pre .javascript .title::selection,
+article pre .coffeescript .title::selection {
+  background: rgba(128,203,196,0.125);
+  color: #eff;
+}
+article pre .tag .attr,
+article pre .javascript .function {
+  color: #c792ea;
+}
+article pre .tag .attr::selection,
+article pre .javascript .function::selection {
+  background: rgba(128,203,196,0.125);
+  color: #eff;
+}
 html {
+  font-family: 'Vollkorn', sans-serif;
   font-size: 62.5%;
 }
 body {
@@ -95,7 +450,7 @@ a {
   display: flex;
   align-items: center;
 }
-.header-mobile .item {
+.header-mobile .header-item {
   text-transform: uppercase;
   letter-spacing: 1px;
   padding: 0 1em;
@@ -104,7 +459,7 @@ a {
   white-space: nowrap;
   vertical-align: middle;
 }
-.header-mobile .item:active {
+.header-mobile .header-item:active {
   background: #ff5537;
 }
 .header-mobile .cur {
