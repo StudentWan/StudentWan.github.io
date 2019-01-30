@@ -86,7 +86,6 @@ article .highlight {
   padding-top: 1.4rem;
   background: #263238;
   color: #eff;
-  font-size: $code-font-size;
   line-height: $line-height-code-block;
 }
 figure.highlight {
@@ -107,7 +106,6 @@ article figure code {
   background: $code-background;
   color: $code-foreground;
   word-wrap: break-word;
-  font-size: $code-font-size;
 }
 article figure pre code {
   padding: 0;
