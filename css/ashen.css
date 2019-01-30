@@ -440,6 +440,7 @@ a {
   background-size: cover;
 }
 .header-mobile {
+  z-index: 10000;
   position: fixed;
   left: 0;
   right: 0;
