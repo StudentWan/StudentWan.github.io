@@ -125,7 +125,8 @@ article table {
   color: #90a4a1;
 }
 article hr {
-  border: 1.5px dashed #ff6347;
+  border: none;
+  border-bottom: 2px dashed #ff6347;
 }
 article img {
   display: block;
