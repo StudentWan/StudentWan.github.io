@@ -8,6 +8,38 @@ article h4,
 article h5,
 article h6 {
   color: #ff6347;
+  cursor: pointer;
+  padding-left: 1em;
+  transition: all 0.2s ease-out;
+  position: relative;
+}
+article h2:before,
+article h3:before,
+article h4:before,
+article h5:before,
+article h6:before {
+  position: absolute;
+  content: "#";
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #aaa;
+  font-weight: 900;
+}
+article h2:hover,
+article h3:hover,
+article h4:hover,
+article h5:hover,
+article h6:hover {
+  color: #aaa;
+  padding-left: 1.5em;
+}
+article h2:hover:before,
+article h3:hover:before,
+article h4:hover:before,
+article h5:hover:before,
+article h6:hover:before {
+  color: #ff6347;
 }
 article pre,
 article blockquote {
@@ -32,6 +64,76 @@ article figure {
   margin-left: 0;
   margin-right: 0;
   overflow: auto;
+}
+article ol,
+article ul {
+  list-style: none;
+  padding: 0;
+  color: #90a4a1;
+  font-size: 1.4rem;
+}
+article ol li,
+article ul li {
+  position: relative;
+  padding-left: 3em;
+}
+article ol li:before,
+article ul li:before {
+  position: absolute;
+  left: 0.6em;
+  transition: all 0.3s ease-out;
+  cursor: pointer;
+}
+article ol {
+  counter-reset: li;
+}
+article ol li:before {
+  width: 1.4rem;
+  height: 1.4rem;
+  counter-increment: li;
+  content: counter(li);
+  background: #ff6347;
+  color: #fff;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 1.2;
+}
+article ol li:hover:before {
+  background: #aaa;
+  transform: rotate(360deg);
+}
+article ul li:before {
+  width: 0.5rem;
+  height: 0.5rem;
+  border: 0.25rem solid #ff6347;
+  border-radius: 50%;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #fff;
+  content: "";
+}
+article ul li:hover:before {
+  border-color: #aaa;
+}
+article table {
+  width: 100%;
+  padding: 0.5em;
+  font-size: 1.4rem;
+  border-radius: 0.3em;
+  background: #fafafa;
+  border: 1px solid #eee;
+  color: #90a4a1;
+}
+article hr {
+  border: 1.5px dashed #ff6347;
+}
+article img {
+  display: block;
+  max-width: 80%;
+  padding: 0.2em;
+  margin: 0 auto;
+  border: 1px solid #eaeefb;
+  box-shadow: 0 0 8px 0 rgba(232,237,250,0.6), 0 2px 4px 0 rgba(232,237,250,0.5);
 }
 article a {
   color: #ff6347;

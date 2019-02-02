@@ -135,6 +135,10 @@ article .highlight table {
   margin: 0;
   width: auto;
   border: none;
+  padding: 0;
+  border-radius: 0;
+  border: none;
+  background: #263238;
 }
 article .highlight table:before {
   position: fixed;

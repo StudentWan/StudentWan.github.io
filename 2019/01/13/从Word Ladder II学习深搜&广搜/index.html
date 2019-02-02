@@ -1,5 +1,13 @@
 <!DOCTYPE html><html lang="en"><head><meta name="generator" content="Hexo 3.8.0"><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="X-UA-Compatible" content="ie=edge"><title>Ashen</title><link rel="stylesheet" href="/css/ashen.css"><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="/css/post.css"><link rel="stylesheet" href="/css/pagination.css"></head><body><div class="wrap"><div class="content-outer" id="content-outer"><div id="content-inner"><header class="header"><header class="header-pc"><a class="index" href="/"><img class="logo" src="/images/logo.png"></a><a class="github" href="https://github.com/StudentWan/hexo-ashen-theme" target="_blank"></a></header><header class="header-mobile" id="header-mobile"><a class="header-item" href="/"><strong>Home</strong></a><a class="header-item" href="/archives"><strong>Archives</strong></a><a class="header-item" href="/tags"><strong>Tags</strong></a><a class="header-item" href="/about"><strong>About</strong></a></header></header><article id="post"><h1>从Word Ladder II学习深搜&amp;广搜</h1><p>Leetcode上有这样一道题：<a href="https://leetcode.com/problems/word-ladder-ii/description/" target="_blank" rel="noopener">Q126. Word Ladder II</a></p>
 <p>这是一道Hard难度的题目，通过率也不高，但是很好的结合了深度优先搜索和广度优先搜索，我希望用这道题目来总结一下深搜&amp;广搜的思想。</p>
+<ul>
+<li><p>测试无序列表</p>
+</li>
+<li><p>测试无序列表</p>
+</li>
+<li><p>测试无序列表</p>
+</li>
+</ul>
 <a id="more"></a>
 <h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p>Given two words (beginWord and endWord), and a dictionary’s word list, find all shortest transformation sequence(s) from beginWord to endWord, such that:</p>
 <blockquote>
@@ -24,7 +32,36 @@
 <p>You may assume no duplicates in the word list.</p>
 <p>You may assume beginWord and endWord are non-empty and are not the same.</p>
 </blockquote>
-<h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p>既然本文的想法就是希望通过此题来总结深搜&amp;广搜，所以我们的思路也自然是将深搜和广搜结合起来解题，当然，能够结合起来也是有原因的，我们需要知道深搜和广搜，分别适合哪种情况的求解。</p>
+<h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><ol>
+<li><p>测试有序列表</p>
+</li>
+<li><p>测试有序列表</p>
+</li>
+<li><p>测试有序列表</p>
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">First Header</th>
+<th style="text-align:center">Second Header</th>
+<th style="text-align:right">Third Header</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Left</td>
+<td style="text-align:center">Center</td>
+<td style="text-align:right">Right</td>
+</tr>
+<tr>
+<td style="text-align:left">Left</td>
+<td style="text-align:center">Center</td>
+<td style="text-align:right">Right</td>
+</tr>
+</tbody>
+</table>
+<p>既然本文的想法就是希望通过此题来总结深搜&amp;广搜，所以我们的思路也自然是将深搜和广搜结合起来解题，当然，能够结合起来也是有原因的，我们需要知道深搜和广搜，分别适合哪种情况的求解。</p>
 <blockquote>
 <p>深度优先搜索：适用于需要求解出所有可能解的问题，在到达问题界限之前会一直递归下去。</p>
 </blockquote>
@@ -32,6 +69,7 @@
 <p>广度优先搜索：层级遍历，适用于那些最小或最短问题的求解，核心思想是通过队列或优先队列保存状态，优先选择看似最优的状态进行扩展，以达到最先扩展到目标节点的目的。</p>
 </blockquote>
 <p>在本题中，我们既要求得所有的转移序列，又要得到其中最短的序列的集合。</p>
+<hr>
 <p>在我最初的解法中，只使用了深度优先搜索，求得所有的转移序列，然后在其中寻找最短的，但是这样的解法，会造成深度遍历的冗余，和后续没有必要的筛选工作，因此也TLE了。</p>
 <p>那么何不先进行广度优先搜索，构造出图和最短路径，然后再进行深度优先搜索，在图和最短路径的约束下递归得到所有的可能呢？</p>
 <h3 id="入口函数"><a href="#入口函数" class="headerlink" title="入口函数"></a>入口函数</h3><p>于是，我们可以这样完成入口函数：</p>
@@ -45,6 +83,7 @@
 <p>于是代码如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// BFS: Trace every node's distance from the start node (level by level).</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">bfs</span><span class="params">(String start, String end, Set&lt;String&gt; dict, HashMap&lt;String, ArrayList&lt;String&gt;&gt; nodeNeighbors, HashMap&lt;String, Integer&gt; distance)</span> </span>&#123;</span><br><span class="line">	<span class="comment">// 初始化已经在入口函数中完成了。</span></span><br><span class="line">	<span class="keyword">for</span> (String str : dict) &#123;</span><br><span class="line">		nodeNeighbors.put(str, <span class="keyword">new</span> ArrayList&lt;String&gt;());</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	Queue&lt;String&gt; queue = <span class="keyword">new</span> LinkedList&lt;String&gt;();</span><br><span class="line">	queue.offer(start);</span><br><span class="line">	distance.put(start, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span> (!queue.isEmpty()) &#123;</span><br><span class="line">		<span class="keyword">int</span> count = queue.size();</span><br><span class="line">		<span class="keyword">boolean</span> foundEnd = <span class="keyword">false</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; count; i++) &#123;</span><br><span class="line">			String cur = queue.poll();</span><br><span class="line">			<span class="keyword">int</span> curDistance = distance.get(cur);</span><br><span class="line">			ArrayList&lt;String&gt; neighbors = getNeighbors(cur, dict);</span><br><span class="line"></span><br><span class="line">			<span class="keyword">for</span> (String neighbor : neighbors) &#123;</span><br><span class="line">				nodeNeighbors.get(cur).add(neighbor);</span><br><span class="line">				<span class="keyword">if</span> (!distance.containsKey(neighbor)) &#123; <span class="comment">//Check if visited</span></span><br><span class="line">					distance.put(neighbor, curDistance + <span class="number">1</span>);</span><br><span class="line">					<span class="keyword">if</span> (end.equals(neighbor))</span><br><span class="line">						foundEnd = <span class="keyword">true</span>;</span><br><span class="line">					<span class="keyword">else</span></span><br><span class="line">						queue.offer(neighbor);</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (foundEnd)</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Find all next level nodes</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> ArrayList&lt;String&gt; <span class="title">getNeighbors</span><span class="params">(String node, Set&lt;String&gt; dict)</span> </span>&#123;</span><br><span class="line">	ArrayList&lt;String&gt; res = <span class="keyword">new</span> ArrayList&lt;String&gt;();</span><br><span class="line">	<span class="keyword">char</span> chs[] = node.toCharArray();</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">char</span> ch = <span class="string">'a'</span>; ch &lt;= <span class="string">'z'</span>; ch++) &#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; chs.length; i++) &#123;</span><br><span class="line">			<span class="keyword">if</span> (chs[i] == ch) <span class="keyword">continue</span>;</span><br><span class="line">			<span class="keyword">char</span> old_ch = chs[i];</span><br><span class="line">			chs[i] = ch;</span><br><span class="line">			<span class="keyword">if</span> (dict.contains(String.valueOf(chs))) &#123;</span><br><span class="line">				res.add(String.valueOf(chs));</span><br><span class="line">			&#125;</span><br><span class="line">			chs[i] = old_ch;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>如此我们使用bfs的目的就达到了，我们利用层级遍历构造了nodeNeighbors，以此作为dfs中需要用到的图，并构造了到达每个节点的最短路径的distance。</p>
+<p><img src="http://pic4.dwnews.net/20141107/65ed675e2e4b643490ab27423cdd93ef_w.jpg" alt="从文"></p>
 <h3 id="dfs"><a href="#dfs" class="headerlink" title="dfs"></a>dfs</h3><p>dfs的解题方法一般是如下的：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">DFS() &#123;</span><br><span class="line">  if(到达目标递归深度) &#123;</span><br><span class="line">    判断当前状态是否为解？-&gt;添加当前状态到解集合</span><br><span class="line">    return</span><br><span class="line">  &#125;</span><br><span class="line">  for(i in 所有可能情况) &#123;</span><br><span class="line">    if(i还未进行搜索) &#123;</span><br><span class="line">      标记i已搜索</span><br><span class="line">      dfs()</span><br><span class="line">      还原现场（标记i未搜索）</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>dfs需要注意的点是：参数记录的状态、过滤掉不可能的状态、状态的保存和还原。</p>
