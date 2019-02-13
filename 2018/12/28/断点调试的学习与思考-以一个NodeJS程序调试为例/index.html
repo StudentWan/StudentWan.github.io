@@ -6,7 +6,7 @@
 <p>我使用的编辑器是Visual Studio Code，在讲述相关知识的时候会以VS Code为基础，但在其他的编辑器中情况应该是大同小异的。</p>
 <a id="more"></a>
 <h3 id="断点调试基本知识"><a href="#断点调试基本知识" class="headerlink" title="断点调试基本知识"></a>断点调试基本知识</h3><p>首先是基本界面：</p>
-<p><img src="http://p20zi8dae.bkt.clouddn.com/ui20180610.png" alt="UI界面"></p>
+<p><img src="http://ashenone.cn/ui20180610.png" alt="UI界面"></p>
 <p>下面逐一讲解：</p>
 <pre><code>1. 变量信息：表示在当前的调用栈下的局部变量、闭包和全局变量，我们在调试的过程中可以通过观察变量的变化来追踪程序的问题
 2. 调用堆栈信息：这个比较好理解，表示当前所处的调用栈
@@ -26,23 +26,16 @@
 <p>在看到这段代码的时候师兄问了我一个问题：这个程序是怎么通过你<code>plugins</code>属性提供的字符串来把你需要的index.js文件加载进来的？</p>
 <p>追踪到<code>transformFileSync</code>函数的定义，发现它是在第三方模块babel-core中引入的，显然，这个问题我们是无法用<code>console.log</code>来回答的。</p>
 <p>于是就开始了断点调试的过程，首先在这一行打上断点，然后开始单步调试：</p>
-<p><img src="http://p20zi8dae.bkt.clouddn.com/break_first20180610.png" alt="第一个断点"></p>
+<p><img src="http://ashenone.cn/break_first20180610.png" alt="第一个断点"></p>
 <p>首先我选择通过结合上文提到的三种操作方式跑通一次程序，借此发现加载index.js文件的时候有哪些变量发生了怎样的变化。我发现，在变量信息中，一个<code>plugins</code>属性发生了变化：</p>
-<p><img src="http://p20zi8dae.bkt.clouddn.com/plugin_120180610.png" alt="plugins状态1"></p>
-<p><img src="http://p20zi8dae.bkt.clouddn.com/plugin-220180610.png" alt="plugins状态2"></p>
+<p><img src="http://ashenone.cn/plugin_120180610.png" alt="plugins状态1"></p>
+<p><img src="http://ashenone.cn/plugin-220180610.png" alt="plugins状态2"></p>
 <p>在仔细分析了这个属性和以及它和正在调试的程序的关联后，我确定就是在这个属性变化的时候真正引入了index.js。</p>
 <p>接下来要做的事就是通过单步调试，逐步缩窄范围，最后确定引入index.js文件的具体位置。</p>
 <p>下面以缩窄范围的第一步举例：</p>
 <p>首先通过单步调试，我发现程序运行到以下代码的第一行：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> file = <span class="keyword">new</span> _file2.default(opts, <span class="keyword">this</span>);</span><br><span class="line"><span class="keyword">return</span> file.wrap(code, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  file.addCode(code);</span><br><span class="line">  file.parseCode(code);</span><br><span class="line">  <span class="keyword">return</span> file.transform();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<p>而在单步调试和单步跳出</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var file = new _file2.default(opts, this);</span><br></pre></td></tr></table></figure>
-<p>这行代码以后，我发现<code>plugins</code>属性发生了上文提到的变化，这说明，这次index.js文件的加载一定是发生在</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">new _file2.default(..., ...)</span><br></pre></td></tr></table></figure>
-<p>这个函数的执行过程中，于是我就可以把断点定在这个函数的第一行，然后单步往后调试：</p>
-<p><img src="http://p20zi8dae.bkt.clouddn.com/narrow_first20180610.png" alt="第一次缩窄范围"></p>
-<p>经过几次重复上述的过程，最终定位到了加载index.js文件的代码：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (pluginLoc) &#123;</span><br><span class="line">  plugin = <span class="built_in">require</span>(pluginLoc);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">ReferenceError</span>(messages.get(<span class="string">"pluginUnknown"</span>, plugin, loc, i, dirname));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>而在单步调试和单步跳出<figure class="highlight plain"><figcaption><span>file </span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">```这行代码以后，我发现`plugins`属性发生了上文提到的变化，这说明，这次index.js文件的加载一定是发生在```new _file2.default(..., ...)```这个函数的执行过程中，于是我就可以把断点定在这个函数的第一行，然后单步往后调试：</span><br><span class="line"></span><br><span class="line">![第一次缩窄范围](http://ashenone.cn/narrow_first20180610.png)</span><br><span class="line"></span><br><span class="line">经过几次重复上述的过程，最终定位到了加载index.js文件的代码：</span><br><span class="line"></span><br><span class="line">```js</span><br><span class="line">if (pluginLoc) &#123;</span><br><span class="line">  plugin = require(pluginLoc);</span><br><span class="line">&#125; else &#123;</span><br><span class="line">  throw new ReferenceError(messages.get(&quot;pluginUnknown&quot;, plugin, loc, i, dirname));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <h3 id="总结和思考"><a href="#总结和思考" class="headerlink" title="总结和思考"></a>总结和思考</h3><p>我在缩窄范围以定位问题的过程中一共打了6个断点，但是师兄给我演示时候只打了3个，这还是由于我对NodeJS和断点调试的熟练程度不够，以后多学习、运用，应该可以不断提升。</p>
 <p>下面谈一点思考：</p>
 <p>在这次学习断点调试的过程中，学到了不同的技术有不同适合的场景，比如有些问题可能通过log更好定位，另一些则用断点调试可能会更好。</p>
